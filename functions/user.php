@@ -33,4 +33,40 @@ function register_check_user($user){
   }
 }
 
+// check login user
+function login_check_user($user){
+  global $link;
+  $user = mysqli_real_escape_string($link, $user);
+
+  $query = "SELECT * FROM users WHERE username = '$user'";
+
+  if($result = mysqli_query($link, $query)){
+    if(mysqli_num_rows($result) != 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+}
+
+//check login password
+function check_data($user,$pass){
+  global $link;
+
+  //escape sql injection
+  $user = mysqli_real_escape_string($link, $user);
+  $pass = mysqli_real_escape_string($link, $pass);
+
+  $query = "SELECT password FROM users WHERE username = '$user'";
+  $result = mysqli_query($link, $query);
+  $result = mysqli_fetch_assoc($result);
+  $hash = $result['password'];
+
+  if(password_verify($pass, $hash)){
+    return true;
+  }else{
+    return false;
+  }
+}
+
 ?>
