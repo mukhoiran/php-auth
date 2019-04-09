@@ -14,10 +14,9 @@ if(isset($_POST['submit'])){
 
   if(!empty(trim($user)) && !empty(trim($pass))){
 
-    if(login_check_user($user)){
+    if(check_user($user) != 0){
       if(check_data($user,$pass)){
-        $_SESSION['user'] = $user;
-        header('Location: index.php');
+        redirect_login($user);
       }else{
         $error = 'Wrong password';
       }

@@ -4,8 +4,8 @@ function register_user($user,$pass){
   global $link;
 
   //escape sql injection
-  $user = mysqli_real_escape_string($link, $user);
-  $pass = mysqli_real_escape_string($link, $pass);
+  $user = escape($user);
+  $pass = escape($pass);
 
   $pass = password_hash($pass, PASSWORD_DEFAULT);
   $query = "INSERT INTO users (username,password) VALUES ('$user','$pass')";
@@ -17,45 +17,13 @@ function register_user($user,$pass){
   }
 }
 
-// username exist
-function register_check_user($user){
-  global $link;
-  $user = mysqli_real_escape_string($link, $user);
-
-  $query = "SELECT * FROM users WHERE username = '$user'";
-
-  if($result = mysqli_query($link, $query)){
-    if(mysqli_num_rows($result) == 0){
-      return true;
-    }else{
-      return false;
-    }
-  }
-}
-
-// check login user
-function login_check_user($user){
-  global $link;
-  $user = mysqli_real_escape_string($link, $user);
-
-  $query = "SELECT * FROM users WHERE username = '$user'";
-
-  if($result = mysqli_query($link, $query)){
-    if(mysqli_num_rows($result) != 0){
-      return true;
-    }else{
-      return false;
-    }
-  }
-}
-
 //check login password
 function check_data($user,$pass){
   global $link;
 
   //escape sql injection
-  $user = mysqli_real_escape_string($link, $user);
-  $pass = mysqli_real_escape_string($link, $pass);
+  $user = escape($user);
+  $pass = escape($pass);
 
   $query = "SELECT password FROM users WHERE username = '$user'";
   $result = mysqli_query($link, $query);
@@ -69,4 +37,25 @@ function check_data($user,$pass){
   }
 }
 
+//avoid injection
+function escape($data){
+  global $link;
+  return mysqli_real_escape_string($link,$data);
+}
+
+function redirect_login($user){
+  $_SESSION['user'] = $user;
+  header('Location: index.php');
+}
+
+function check_user($user){
+  global $link;
+  $user = escape($user);
+
+  $query = "SELECT * FROM users WHERE username = '$user'";
+
+  if($result = mysqli_query($link, $query)){
+    return mysqli_num_rows($result);
+  }
+}
 ?>

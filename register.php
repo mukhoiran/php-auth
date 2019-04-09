@@ -15,10 +15,10 @@ if(isset($_POST['submit'])){
 
   if(!empty(trim($user)) && !empty(trim($pass))){
 
-    if (register_check_user($user)){
+    if (check_user($user) == 0){
       //insert into database
       if(register_user($user,$pass)){
-        $error = 'success';
+        redirect_login($user);
       }else{
         $error = 'failed';
       }
