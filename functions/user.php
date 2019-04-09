@@ -17,4 +17,20 @@ function register_user($user,$pass){
   }
 }
 
+// username exist
+function register_check_user($user){
+  global $link;
+  $user = mysqli_real_escape_string($link, $user);
+
+  $query = "SELECT * FROM users WHERE username = '$user'";
+
+  if($result = mysqli_query($link, $query)){
+    if(mysqli_num_rows($result) == 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+}
+
 ?>

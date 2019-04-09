@@ -7,11 +7,16 @@ if(isset($_POST['submit'])){
   $pass = $_POST['password'];
 
   if(!empty(trim($user)) && !empty(trim($pass))){
-    //insert into database
-    if(register_user($user,$pass)){
-      echo 'success';
+
+    if (register_check_user($user)){
+      //insert into database
+      if(register_user($user,$pass)){
+        echo 'success';
+      }else{
+        echo 'failed';
+      }
     }else{
-      echo 'failed';
+      echo "username already exist";
     }
   }else{
     echo "User or password can't empty";
