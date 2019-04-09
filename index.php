@@ -8,5 +8,5 @@ if(!isset($_SESSION['user'])){
 
 ?>
 
-
-<h1>Profile page</h1>
+<h1>Profile page <?=$_SESSION['user']?></h1>
+<a href="logout.php">Logout</a>

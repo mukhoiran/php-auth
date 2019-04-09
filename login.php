@@ -34,7 +34,7 @@ require_once "view/header.php";
   <label for="">Password</label><br>
   <input type="password" name="password" value=""><br><br>
 
-  <input type="submit" name="submit" value="Register">
+  <input type="submit" name="submit" value="Login">
 </form>
 
 <?php
