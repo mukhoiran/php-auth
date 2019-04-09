@@ -55,7 +55,21 @@ function check_user($user){
 
 //flash message
 function flash_delete($msg){
-    echo $_SESSION['msg'];
-    unset($_SESSION['msg']);
+  echo $_SESSION['msg'];
+  unset($_SESSION['msg']);
+}
+
+//check user status
+function check_status($user){
+  global $link;
+
+  $user = escape($user);
+  $query = "SELECT role FROM users WHERE username = '$user'";
+
+  $result = mysqli_query($link, $query);
+  $status = mysqli_fetch_assoc($result)['role'];
+
+  if($status == 1) return true;
+  else return false;
 }
 ?>
