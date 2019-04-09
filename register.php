@@ -1,6 +1,8 @@
 <?php
 require_once "core/init.php";
 
+$error = '';
+
 // if already login
 if(isset($_SESSION['user'])){
   header('Location: index.php');
@@ -16,15 +18,15 @@ if(isset($_POST['submit'])){
     if (register_check_user($user)){
       //insert into database
       if(register_user($user,$pass)){
-        echo 'success';
+        $error = 'success';
       }else{
-        echo 'failed';
+        $error = 'failed';
       }
     }else{
-      echo "username already exist";
+      $error = "username already exist";
     }
   }else{
-    echo "User or password can't empty";
+    $error = "User or password can't empty";
   }
 }
 
@@ -38,7 +40,13 @@ require_once "view/header.php";
   <label for="">Password</label><br>
   <input type="password" name="password" value=""><br><br>
 
-  <input type="submit" name="submit" value="Register">
+  <input type="submit" name="submit" value="Register"><br><br>
+
+  <?php if($error != '') {?>
+    <div id="error">
+      <?=$error?>
+    </div>
+  <?php } ?>
 </form>
 
 <?php

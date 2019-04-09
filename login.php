@@ -1,11 +1,11 @@
 <?php
 require_once "core/init.php";
 
+$error = '';
 // if already login
 if(isset($_SESSION['user'])){
   header('Location: index.php');
 }
-
 
 //validatino register
 if(isset($_POST['submit'])){
@@ -19,14 +19,14 @@ if(isset($_POST['submit'])){
         $_SESSION['user'] = $user;
         header('Location: index.php');
       }else{
-        echo 'Wrong password';
+        $error = 'Wrong password';
       }
     }else{
-      echo 'Username not exist';
+      $error = 'Username not exist';
     }
 
   }else{
-    echo "User or password can't empty";
+    $error = "User or password can't empty";
   }
 }
 
@@ -40,7 +40,14 @@ require_once "view/header.php";
   <label for="">Password</label><br>
   <input type="password" name="password" value=""><br><br>
 
-  <input type="submit" name="submit" value="Login">
+  <input type="submit" name="submit" value="Login"><br><br>
+
+  <?php if($error != '') {?>
+    <div id="error">
+      <?=$error?>
+    </div>
+  <?php } ?>
+
 </form>
 
 <?php
