@@ -52,4 +52,10 @@ function check_user($user){
     return mysqli_num_rows($result);
   }
 }
+
+//flash message
+function flash_delete($msg){
+    echo $_SESSION['msg'];
+    unset($_SESSION['msg']);
+}
 ?>

@@ -22,6 +22,9 @@ if(isset($_POST['submit'])){
 }
 
 require_once "view/header.php";
+
+//session flash
+if(isset($_SESSION['msg'])) flash_delete($_SESSION['msg']);
 ?>
 
 <form class="" action="login.php" method="post">
