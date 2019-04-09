@@ -1,6 +1,12 @@
 <?php
 require_once "core/init.php";
 
+// if already login
+if(isset($_SESSION['user'])){
+  header('Location: index.php');
+}
+
+
 //validatino register
 if(isset($_POST['submit'])){
   $user = $_POST['username'];
