@@ -10,11 +10,8 @@ function register_user($user,$pass){
   $pass = password_hash($pass, PASSWORD_DEFAULT);
   $query = "INSERT INTO users (username,password) VALUES ('$user','$pass')";
 
-  if(mysqli_query($link, $query)){
-    return true;
-  }else{
-    return false;
-  }
+  if(mysqli_query($link, $query)) return true;
+  else return false;
 }
 
 //check login password
@@ -30,11 +27,8 @@ function check_data($user,$pass){
   $result = mysqli_fetch_assoc($result);
   $hash = $result['password'];
 
-  if(password_verify($pass, $hash)){
-    return true;
-  }else{
-    return false;
-  }
+  if(password_verify($pass, $hash)) return true;
+  else return false;
 }
 
 //avoid injection

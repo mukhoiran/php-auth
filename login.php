@@ -3,9 +3,7 @@ require_once "core/init.php";
 
 $error = '';
 // if already login
-if(isset($_SESSION['user'])){
-  header('Location: index.php');
-}
+if(isset($_SESSION['user'])) header('Location: index.php');
 
 //validatino register
 if(isset($_POST['submit'])){
@@ -15,18 +13,12 @@ if(isset($_POST['submit'])){
   if(!empty(trim($user)) && !empty(trim($pass))){
 
     if(check_user($user) != 0){
-      if(check_data($user,$pass)){
-        redirect_login($user);
-      }else{
-        $error = 'Wrong password';
-      }
-    }else{
-      $error = 'Username not exist';
-    }
+      if(check_data($user,$pass)) redirect_login($user);
+      else $error = 'Wrong password';
 
-  }else{
-    $error = "User or password can't empty";
-  }
+    }else $error = 'Username not exist';
+
+  }else $error = "User or password can't empty";
 }
 
 require_once "view/header.php";
