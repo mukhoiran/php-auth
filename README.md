@@ -1,2 +1,2 @@
 # php-auth
-Documentation PHP Auth
+PHP Auth
